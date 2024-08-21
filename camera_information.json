@@ -1,0 +1,20 @@
+[
+  {
+    "Name": "garagecamera",
+    "Password": "PASSWORD",
+    "ip": "192.168.1.***",
+    "stream": "stream1"
+  },
+  {
+    "Name": "backyardcamera",
+    "Password": "PASSWORD",
+    "ip": "192.168.1.***",
+    "stream": "stream1"
+  },
+  {
+    "Name": "livingroom",
+    "Password": "PASSWORD",
+    "ip": "192.168.1.***",
+    "stream": "stream1"
+  }
+]
