@@ -327,8 +327,7 @@ def StopCAM(cam_num):
         # Displaying text message in the camera label
         root.cameraLabel2.config(text="OFF CAM2", font=('Times New Room',70))
         # Configuring the CAMBTN to display accordingly
-        root.CAMBTN2.config(text="Start Cam2", command=lambda:StartCAM( 2 ))    
-
+        root.CAMBTN2.config(text="Start Cam2", command=lambda:StartCAM( 2 ))
     elif cam_num == 1:
         # Stopping the camera using release() method of cv.VideoCapture()
         root.cap1.release()    
@@ -385,7 +384,7 @@ def StartCAM(cam_num):
         root.cameraLabel.config(text="") 
     elif cam_num == 3:
         # Creating object of class VideoCapture with webcam index
-        root.cap3 = cv.VideoCapture(0)
+        root.cap3 = cv.VideoCapture(rtsp_url3)
         
         # Setting width and height
         width_1, height_1 = 500, 300
@@ -393,7 +392,7 @@ def StartCAM(cam_num):
         root.cap3.set(cv.CAP_PROP_FRAME_HEIGHT, height_1)
 
         # Configuring the CAMBTN to display accordingly
-        root.CAMBTN.config(text="Stop Camera3", command=lambda:StopCAM(3))
+        root.CAMBTN3.config(text="Stop Camera3", command=lambda:StopCAM(3))
 
         # Removing text message from the camera label
         root.cameraLabel3.config(text="")
