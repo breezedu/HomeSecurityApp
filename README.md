@@ -16,9 +16,12 @@ Computer: A computer with sufficient processing power to run OpenCV and handle t
 
 # Software Requirements
 
-## Python: Ensure Python is installed on your system.
-## OpenCV: Install OpenCV for image processing and video analysis.
-## IP Webcam App: Most IP Cameras come with an app to install on your smartphone to connect to the cameras.
+## Python: 
+Ensure Python is installed on your system.
+## OpenCV: 
+Install OpenCV for image processing and video analysis.
+## IP Webcam App: 
+Most IP Cameras come with an app to install on your smartphone to connect to the cameras.
 
 # Installation and Setup
 
@@ -43,9 +46,12 @@ Set up push notification services (e.g., Twilio, Pushover) if desired.
 
 # Usage
 
-### Monitor Live Feeds: View the live video streams from the three cameras.
-### Receive Notifications: Receive push notifications on your smartphone when motion is detected.
-### Customize Settings: Adjust settings as needed, such as sensitivity for motion detection or notification preferences.
+### Monitor Live Feeds: 
+View the live video streams from the three cameras.
+### Receive Notifications: 
+Receive push notifications on your smartphone when motion is detected.
+### Customize Settings: 
+Adjust settings as needed, such as sensitivity for motion detection or notification preferences.
 
 # Contributing
 
