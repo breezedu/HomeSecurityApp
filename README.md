@@ -16,9 +16,9 @@ Computer: A computer with sufficient processing power to run OpenCV and handle t
 
 # Software Requirements
 
-Python: Ensure Python is installed on your system.
-OpenCV: Install OpenCV for image processing and video analysis.
-IP Webcam App: Most IP Cameras come with an app to install on your smartphone to connect to the cameras.
+## Python: Ensure Python is installed on your system.
+## OpenCV: Install OpenCV for image processing and video analysis.
+## IP Webcam App: Most IP Cameras come with an app to install on your smartphone to connect to the cameras.
 
 # Installation and Setup
 
@@ -29,21 +29,23 @@ Place the cameras in strategic locations to monitor your garage, backyard, and h
 Software Installation:
 
 Install Python and OpenCV following the official guides.
-Clone or download the project's source code from [this GitHub repository link: https://github.com/breezedu/HomeSecurityApp.git].
+Clone or download the project's source code from [GitHub repository link: https://github.com/breezedu/HomeSecurityApp.git].
 
 ## Configuration:
 
-Modify the configuration file (e.g., config.py) to specify the IP addresses of your cameras and other settings.
+Modify the configuration file (e.g. camera_information.json) to specify the username, password, and IP addresses of your cameras and other settings.
+
 Set up push notification services (e.g., Twilio, Pushover) if desired.
-Run the App:
+
+# Run the App:
 
 ## Execute the main Python script (e.g., main.py) to start the app.
 
 # Usage
 
-Monitor Live Feeds: View the live video streams from the three cameras.
-Receive Notifications: Receive push notifications on your smartphone when motion is detected.
-Customize Settings: Adjust settings as needed, such as sensitivity for motion detection or notification preferences.
+### Monitor Live Feeds: View the live video streams from the three cameras.
+### Receive Notifications: Receive push notifications on your smartphone when motion is detected.
+### Customize Settings: Adjust settings as needed, such as sensitivity for motion detection or notification preferences.
 
 # Contributing
 
