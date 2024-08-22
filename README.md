@@ -42,7 +42,10 @@ Set up push notification services (e.g., Twilio, Pushover) if desired.
 
 # Run the App:
 
-## Execute the main Python script (e.g., main.py) to start the app.
+ Execute the main Python script (e.g., Capture_image_inWidget_3Cams.py) to start the app. 
+
+ Usage demo: 
+ ![Demo_image](./images/3cam_snapshot.png)
 
 # Usage
 
