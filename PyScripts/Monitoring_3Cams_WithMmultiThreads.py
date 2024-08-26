@@ -8,10 +8,13 @@ import cv2 as cv
 import threading
 import time
 import tkinter as tk
+from tkinter import * 
 from tkinter import Label
+from tkinter import messagebox, filedialog
 from PIL import Image, ImageTk 
 import os 
 import json 
+from datetime import datetime 
 
 
 # In[2]:
@@ -33,7 +36,7 @@ class CameraApp:
         # Initialize variables
         self.capturing = False
         self.recording = False
-        self.video_dir = "output"  # Default directory for saving videos
+        self.video_dir = StringVar()  # Default directory for saving videos 
         self.preview_image = None
         
         # Create labels for the cameras
@@ -65,11 +68,15 @@ class CameraApp:
         self.previewlabel = Label(root, bg="LIGHTBLUE", fg="black", text="PreView", font=('Times New Room',20))
         self.previewlabel.grid(row=5, column=3, padx=10, pady=10, columnspan=2)
 
-        self.label_preview = Label(root, bg="steelblue", borderwidth=3, relief="groove")
-        self.label_preview.grid(row=6, column=3, padx=10, pady=10, columnspan=2)
+        self.label_preview = Label(root, bg="steelblue", borderwidth=3, relief="groove") 
+        self.label_preview.grid(row=6, column=3, padx=10, pady=10, columnspan=2) 
         
-        #self.label_preview = Label(root, bg="LIGHTBLUE", fg="black", text="PreView", font=('Times New Room',20))
-        #self.label_preview.grid(row=5, column=3, padx=10, pady=10, columnspan=2)
+        # save directory for captured videos or images
+        self.saveLocationEntry = Entry(root, width=55, textvariable=self.video_dir)
+        self.saveLocationEntry.grid(row=7, column=2, padx=10, pady=10)
+
+        self.browseButton = tk.Button(root, width=18, text="Browse Save Path", command=lambda:saveDirBrowse(self.video_dir))
+        self.browseButton.grid(row=7, column=1, padx=10, pady=10)
 
         # Start camera threads
         self.camera_1_thread = threading.Thread(target=self.monitor_camera, args=( self.label_camera_1, root.cap1))
@@ -92,15 +99,16 @@ class CameraApp:
             gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
             faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
             
-            # Draw rectangles around detected faces
-            for (x, y, w, h) in faces:
-                cv.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
-                self.preview_image = frame  # Save the detected face region for preview
-                self.display_preview(self.preview_image)
-
             # Check for recording
-            if len(faces) > 0 and not self.recording:
-                #self.start_recording(cap)
+            if len(faces) > 0 and not self.recording: 
+                            # Draw rectangles around detected faces
+                for (x, y, w, h) in faces:
+                    cv.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
+                    self.preview_image = frame  # Save the detected face region for preview
+                    self.display_preview(self.preview_image)
+                
+                #self.start_recording(cap) 
+                saveImage(self.preview_image, self.video_dir)
                 print(" Person detected. ")
 
             # Convert frame for display
@@ -141,8 +149,71 @@ class CameraApp:
             self.label_preview.imgtk = imgtk
             self.label_preview.configure(image=imgtk)
 
+    
+
 
 # In[4]:
+
+
+def saveDirBrowse(targetPath):
+    # Presenting user with a pop-up for directory selection. initialdir argument is optional
+    # Retrieving the user-input destination directory and storing it in destinationDirectory
+    # Setting the initialdir argument is optional. SET IT TO YOUR DIRECTORY PATH
+    targetDir = filedialog.askdirectory(initialdir="Choose Your target Dir for videos/images.")
+
+    # Displaying the directory in the directory textbox
+    targetPath.set(targetDir)
+
+
+# In[ ]:
+
+
+
+
+
+# In[5]:
+
+
+def saveImage(image, targetPath):
+    # Storing the date in the mentioned format in the image_name variable
+    image_name = datetime.now().strftime('%d-%m-%Y %H-%M-%S') 
+    
+    image_path = os.getcwd() 
+    
+    # If the user has selected the destination directory, then get the directory and save it in image_path    
+    if targetPath.get() != '':
+        image_path = targetPath.get()
+    # If the user has not selected any destination directory, then set the image_path to default directory
+    else:
+        messagebox.showerror("ERROR", "NO DIRECTORY SELECTED TO STORE IMAGE!!")
+
+    # Concatenating the image_path with image_name and with .jpg extension and saving it in imgName variable
+    imgName = image_path + '/' + image_name + ".jpg"
+
+    # Capturing the frame
+    #ret, frame = cap.read() 
+    #frame = root.cap.resize(frame, (640, 480))   # resize immediately; 
+
+    # Displaying date and time on the frame
+    cv.putText(image, datetime.now().strftime('%d/%m/%Y %H:%M:%S'), (430,460), cv.FONT_HERSHEY_DUPLEX, 0.5, (0,255,255))
+
+    # Writing the image with the captured frame. Function returns a Boolean Value which is stored in success variable
+    frame = cv.resize(image, (500, 300))
+    success = cv.imwrite(imgName, image)
+
+    # Displaying messagebox
+    if success :
+        #messagebox.showinfo("Image saved!", "The captured image has been saved to: " + imgName)
+        print( "A new image with person detected has been saved!")
+
+
+# In[ ]:
+
+
+
+
+
+# In[6]:
 
 
 def read_ip_camera_info(j_path):
@@ -164,7 +235,7 @@ def read_ip_camera_info(j_path):
     return data
 
 
-# In[5]:
+# In[ ]:
 
 
 if __name__ == "__main__":
@@ -198,5 +269,5 @@ if __name__ == "__main__":
     
     root.mainloop()
     
-    
+    #End :) 
 
