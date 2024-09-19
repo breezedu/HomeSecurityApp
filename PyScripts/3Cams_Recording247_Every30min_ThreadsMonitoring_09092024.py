@@ -1,9 +1,10 @@
 import cv2
 import time
 import os
-from datetime import datetime
 import threading
 import json 
+import shutil
+from datetime import datetime, timedelta
 
 # Configuration: IP camera URLs
 # CAMERA_URLS = [
@@ -26,6 +27,21 @@ def create_target_directory(base_directory):
     full_path = os.path.join(base_directory, date_dir)
     os.makedirs(full_path, exist_ok=True)
     return full_path
+
+def delete_old_subdirectories(directory, three_weeks_ago):
+    for subdir in os.listdir(directory):
+        subdir_path = os.path.join(directory, subdir)
+        
+        # Check if it is a subdirectory
+        if os.path.isdir(subdir_path):
+            # Get the creation time of the subdirectory
+            creation_time = os.path.getctime(subdir_path)
+            
+            # Check if the subdirectory was created 3 weeks ago or more
+            if creation_time < three_weeks_ago:
+                print(f"Deleting: {subdir_path}")
+                shutil.rmtree(subdir_path)  # Remove the directory and all its contents
+
 
 def get_video_filename(camera_index):
     """
@@ -55,7 +71,12 @@ def record_camera(camera_url, camera_index):
             end_time = time.time() + VIDEO_DURATION
 
             # Create a new video file
-            video_path = create_target_directory(TARGET_DIRECTORY)
+            video_path = create_target_directory(TARGET_DIRECTORY) 
+            # Also check if there's a sub directory created 3 weeks ago, if so, remove that subdir
+            now = time.time() 
+            three_weeks_ago = now - (3*7*24*60*60) 
+            delete_old_subdirectories( TARGET_DIRECTORY, three_weeks_ago) 
+            # 
             filename = get_video_filename(camera_index)
             filepath = os.path.join(video_path, filename)
 
