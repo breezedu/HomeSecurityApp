@@ -1,0 +1,23 @@
+[
+    {
+        "mac": "20:23:51:11:AE:3D",
+        "username": "garagecamera",
+        "password": "xyzxyzxyzxyz",
+        "ip": "192.168.1.168",
+        "stream": "stream1"
+    },
+    {
+        "mac": "40:AE:30:6E:88:3E",
+        "username": "backyardcamera",
+        "password": "xyzxyzxyzxyz",
+        "ip": "192.168.1.109",
+        "stream": "stream1"
+    },
+    {
+        "mac": "20:23:51:F9:C1:6A",
+        "username": "livingroomcamera",
+        "password": "xyzxyzxyzxyz",
+        "ip": "192.168.1.247",
+        "stream": "stream1"
+    }
+]
